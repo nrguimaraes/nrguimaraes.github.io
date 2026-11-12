@@ -1,0 +1,416 @@
+[
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "NER Models for Portuguese Emergency Room Notes: Extracting Diagnoses, Medication Allergies, and Usual Medications",
+    "venue": "EPIA 2026, Progress in Artificial Intelligence (Springer; in press in the October 2026 CV)",
+    "authors": "N. Guimarães et al.",
+    "url": "",
+    "featured": true
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "Narrative-Aware Domain Knowledge Integration for Annotation-Free Medical Image Localisation",
+    "venue": "Text2Story / ECIR 2026, CEUR Workshop Proceedings",
+    "authors": "T. A. Munna, N. Guimarães, A. Jorge",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "CitiLink: Enhancing Municipal Transparency and Citizen Engagement through Searchable Meeting Minutes",
+    "venue": "ECIR 2026, Advances in Information Retrieval (Springer)",
+    "authors": "R. Silva et al.",
+    "url": "https://github.com/inesctec/citilink-demo",
+    "featured": true
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "CitiLink-Summ: A Dataset of Discussion Subjects Summaries in European Portuguese Municipal Meeting Minutes",
+    "venue": "The Web Conference (WWW) 2026",
+    "authors": "M. Marques et al.",
+    "url": "https://doi.org/10.1145/3774904.3792945",
+    "featured": true
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "Knowledge-Aware Clinical Narrative Extraction Using Ontologies and Knowledge Graphs",
+    "venue": "EPIA 2026, Progress in Artificial Intelligence (Springer)",
+    "authors": "M. Leite et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "LLM-Based Framework for Synthetic Data Generation in Portuguese Clinical NER",
+    "venue": "EPIA 2026, Progress in Artificial Intelligence (Springer)",
+    "authors": "L. Henriques, N. Guimarães, A. Jorge",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "Med2Story Referential: A Domain-Specific Extension of ISO 24617-9 for Clinical Narratives Annotation",
+    "venue": "ISA-22 @ LREC 2026",
+    "authors": "A. L. Fernandes et al.",
+    "url": "https://aclanthology.org/2026.isa-1.1/",
+    "featured": false
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "ClaimPT: A Portuguese Dataset of Annotated Claims in News Articles",
+    "venue": "ECIR 2026, Advances in Information Retrieval (Springer)",
+    "authors": "R. Campos et al.",
+    "url": "https://researchportal.ulisboa.pt/pt/publications/claimpt-a-portuguese-dataset-ofannotated-claims-innews-articles/",
+    "featured": true
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "CitiLink-Minutes: A Multilayer Annotated Dataset of Municipal Meeting Minutes",
+    "venue": "ECIR 2026, Advances in Information Retrieval (Springer)",
+    "authors": "R. Campos et al.",
+    "url": "https://arxiv.org/abs/2602.12137",
+    "featured": true
+  },
+  {
+    "year": 2026,
+    "type": "conference",
+    "title": "MINER: A Two-Stage Pipeline for Metadata Extraction from Municipal Meeting Minutes",
+    "venue": "ECIR 2026, Advances in Information Retrieval (Springer)",
+    "authors": "R. Batista et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "NarratEX Dataset: Explaining the Dominant Narratives in News Texts",
+    "venue": "Findings of EMNLP 2025",
+    "authors": "N. Guimarães et al.",
+    "url": "https://aclanthology.org/2025.findings-emnlp.1112/",
+    "featured": true
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "Automating Data Extraction from PDF Sleep Reports Using Data Mining Techniques",
+    "venue": "Studies in Health Technology and Informatics, 2025",
+    "authors": "F. Teixeira et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "PolyNarrative: A Multilingual, Multilabel, Multi-domain Dataset for Narrative Extraction from News Articles",
+    "venue": "ACL 2025 (Long Papers)",
+    "authors": "N. Nikolaidis et al.",
+    "url": "https://aclanthology.org/2025.acl-long.1513/",
+    "featured": true
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "SemEval 2025 Task 10: Multilingual Characterization and Extraction of Narratives from Online News",
+    "venue": "SemEval 2025",
+    "authors": "J. Piskorski et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "Using LLMs to Generate Patient Journeys in Portuguese: An Experiment",
+    "venue": "Text2Story / ECIR 2025",
+    "authors": "T. A. Munna et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "Language Model of Lung Nodules in LNDb Medical Reports",
+    "venue": "IEEE EMBC 2025",
+    "authors": "A. R. Ferreira et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "Human Experts vs. Large Language Models: Evaluating Annotation Scheme and Guidelines Development for Clinical Narratives",
+    "venue": "Text2Story / ECIR 2025",
+    "authors": "A. L. Fernandes et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "The Incremental Process of Building an Annotation Scheme for Clinical Narratives in Portuguese: The Contribution of Human Variation Analysis",
+    "venue": "Linguistic Annotation Workshop (LAW) 2025",
+    "authors": "A. L. Fernandes et al.",
+    "url": "https://aclanthology.org/2025.law-1.28/",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "Can ISO 24617-1 Go Clinical? Extending a General-Domain Scheme to Medical Narratives",
+    "venue": "ISA-21, 2025",
+    "authors": "A. L. Fernandes et al.",
+    "url": "https://aclanthology.org/2025.isa-1.5/",
+    "featured": false
+  },
+  {
+    "year": 2025,
+    "type": "conference",
+    "title": "MedLink: Retrieval and Ranking of Case Reports to Assist Clinical Decision Making",
+    "venue": "ECIR 2025 · Best Demo Paper Award",
+    "authors": "L. F. Cunha et al.",
+    "url": "https://www.di.ubi.pt/~rcampos/assets/files/ECIR2025Apr_Medlink.pdf",
+    "featured": true
+  },
+  {
+    "year": 2025,
+    "type": "journal",
+    "title": "Será o ChatGPT um bom divulgador científico em cosmetologia? Um estudo linguístico sobre textos de divulgação científica",
+    "venue": "Revista da Associação Portuguesa de Linguística, 2025",
+    "authors": "A. F. Pacheco et al.",
+    "url": "https://doi.org/10.26334/2183-9077/rapln13ano2025a12",
+    "featured": false
+  },
+  {
+    "year": 2024,
+    "type": "conference",
+    "title": "Overview of the CLEF-2024 CheckThat! Lab Task 3 on Persuasion Techniques",
+    "venue": "CLEF 2024 Working Notes",
+    "authors": "J. Piskorski et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2024,
+    "type": "conference",
+    "title": "Perfil Público: Automatic Generation and Visualization of Author Profiles for Digital News Media",
+    "venue": "PROPOR 2024",
+    "authors": "N. Guimarães, R. Campos, A. Jorge",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2024,
+    "type": "conference",
+    "title": "Physio: An LLM-Based Physiotherapy Advisor",
+    "venue": "ECIR 2024 · Best Demo Paper Award",
+    "authors": "R. Almeida et al.",
+    "url": "",
+    "featured": true
+  },
+  {
+    "year": 2024,
+    "type": "journal",
+    "title": "Pre-trained Language Models: What Do They Know?",
+    "venue": "WIREs Data Mining and Knowledge Discovery, 2024",
+    "authors": "N. Guimarães, R. Campos, A. Jorge",
+    "url": "https://doi.org/10.1002/widm.1518",
+    "featured": true
+  },
+  {
+    "year": 2023,
+    "type": "conference",
+    "title": "GPT Struct Me: Probing GPT Models on Narrative Entity Extraction",
+    "venue": "IEEE/WIC WI-IAT 2023",
+    "authors": "H. Sousa et al.",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2023,
+    "type": "conference",
+    "title": "A WebApp for Reliability Detection in Social Media",
+    "venue": "Procedia Computer Science, 2023",
+    "authors": "F. David, N. Guimarães, A. Figueira",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2023,
+    "type": "chapter",
+    "title": "Exploring Climate Change Data with R",
+    "venue": "Statistics for Empowerment and Social Engagement (Springer), 2023",
+    "authors": "N. Guimarães et al.",
+    "url": "https://doi.org/10.1007/978-3-031-20748-8_11",
+    "featured": false
+  },
+  {
+    "year": 2021,
+    "type": "conference",
+    "title": "Profiling Accounts Political Bias on Twitter",
+    "venue": "CISTI 2021",
+    "authors": "N. Guimarães, A. Figueira, L. Torgo",
+    "url": "https://ieeexplore.ieee.org/document/9476652",
+    "featured": false
+  },
+  {
+    "year": 2021,
+    "type": "journal",
+    "title": "Towards a Pragmatic Detection of Unreliable Accounts on Social Networks",
+    "venue": "Online Social Networks and Media, 2021",
+    "authors": "N. Guimarães, A. Figueira, L. Torgo",
+    "url": "https://www.sciencedirect.com/science/article/pii/S2468696421000343",
+    "featured": false
+  },
+  {
+    "year": 2021,
+    "type": "journal",
+    "title": "Can Fake News Detection Models Maintain the Performance through Time? A Longitudinal Evaluation of Twitter Publications",
+    "venue": "Mathematics, 2021",
+    "authors": "N. Guimarães, A. Figueira, L. Torgo",
+    "url": "https://www.mdpi.com/2227-7390/9/22/2988",
+    "featured": false
+  },
+  {
+    "year": 2020,
+    "type": "conference",
+    "title": "Knowledge-Based Reliability Metrics for Social Media Accounts",
+    "venue": "WEBIST 2020",
+    "authors": "N. Guimarães, A. Figueira, L. Torgo",
+    "url": "https://www.scitepress.org/Link.aspx?doi=10.5220/0010140403390350",
+    "featured": false
+  },
+  {
+    "year": 2020,
+    "type": "chapter",
+    "title": "Analysis and Detection of Unreliable Users in Twitter: Two Case Studies",
+    "venue": "Knowledge Discovery, Knowledge Engineering and Knowledge Management (Springer), 2020",
+    "authors": "N. Guimarães, A. Figueira, L. Torgo",
+    "url": "https://www.springerprofessional.de/en/analysis-and-detection-of-unreliable-users-in-twitter-two-case-s/18120348",
+    "featured": false
+  },
+  {
+    "year": 2020,
+    "type": "journal",
+    "title": "Identifying Journalistically Relevant Social Media Texts Using Human and Automatic Methodologies",
+    "venue": "International Journal of Grid and Utility Computing, 2020",
+    "authors": "N. Guimarães, F. Miranda, A. Figueira",
+    "url": "https://www.inderscienceonline.com/doi/abs/10.1504/IJGUC.2020.103971",
+    "featured": false
+  },
+  {
+    "year": 2019,
+    "type": "conference",
+    "title": "Fake News and Big Data: An Overview of Solutions",
+    "venue": "ISI World Statistics Congress, 2019",
+    "authors": "N. Guimarães, K. Vehkalahti, P. Campos",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2019,
+    "type": "conference",
+    "title": "A System to Automatically Predict Relevance in Social Media",
+    "venue": "Procedia Computer Science, 2019",
+    "authors": "A. Figueira, N. Guimarães, J. Pinto",
+    "url": "https://www.sciencedirect.com/science/article/pii/S1877050919321994",
+    "featured": false
+  },
+  {
+    "year": 2019,
+    "type": "journal",
+    "title": "A Brief Overview on the Strategies to Fight Back the Spread of False Information",
+    "venue": "Journal of Web Engineering, 2019",
+    "authors": "A. Figueira, N. Guimarães, L. Torgo",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2018,
+    "type": "conference",
+    "title": "Human vs. Automatic Annotation Regarding the Task of Relevance Detection in Social Networks",
+    "venue": "LNDECT, 2018",
+    "authors": "N. Guimarães, F. Miranda, A. Figueira",
+    "url": "https://link.springer.com/chapter/10.1007/978-3-319-75928-9_85",
+    "featured": false
+  },
+  {
+    "year": 2018,
+    "type": "conference",
+    "title": "Contributions to the Detection of Unreliable Twitter Accounts through Analysis of Content and Behaviour",
+    "venue": "IC3K 2018",
+    "authors": "N. Guimarães, A. Figueira, L. Torgo",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2018,
+    "type": "conference",
+    "title": "Current State of the Art to Detect Fake News in Social Media: Global Trendings and Next Challenges",
+    "venue": "WEBIST 2018",
+    "authors": "A. Figueira, N. Guimarães, L. Torgo",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2018,
+    "type": "conference",
+    "title": "Building a Semi-Supervised Dataset to Train Journalistic Relevance Detection Models",
+    "venue": "IEEE Big Data Intelligence and Computing, 2018",
+    "authors": "N. Guimarães, A. Figueira",
+    "url": "https://ieeexplore.ieee.org/document/8328548/",
+    "featured": false
+  },
+  {
+    "year": 2018,
+    "type": "chapter",
+    "title": "Twitter as a Source for Time- and Domain-Dependent Sentiment Lexicons",
+    "venue": "Social Network Based Big Data Analysis and Applications (Springer), 2018",
+    "authors": "N. Guimarães, L. Torgo, A. Figueira",
+    "url": "https://link.springer.com/chapter/10.1007/978-3-319-78196-9_1",
+    "featured": false
+  },
+  {
+    "year": 2017,
+    "type": "conference",
+    "title": "Detecting Journalistic Relevance on Social Media: A Two-Case Study Using Automatic Surrogate Features",
+    "venue": "ASONAM 2017",
+    "authors": "A. Figueira, N. Guimarães",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2017,
+    "type": "conference",
+    "title": "An Architecture for a Continuous and Exploratory Analysis on Social Media",
+    "venue": "International Conference on Big Data Analytics, Data Mining and Computational Intelligence, 2017",
+    "authors": "D. Cunha, N. Guimarães, A. Figueira",
+    "url": "",
+    "featured": false
+  },
+  {
+    "year": 2016,
+    "type": "conference",
+    "title": "Lexicon Expansion System for Domain and Time Oriented Sentiment Analysis",
+    "venue": "IC3K 2016",
+    "authors": "N. Guimarães, L. Torgo, A. Figueira",
+    "url": "https://www.scitepress.org/Papers/2016/60817/60817.pdf",
+    "featured": false
+  },
+  {
+    "year": 2015,
+    "type": "conference",
+    "title": "AFINA-te: A Healthy Lifestyle Information Website, Online Food Diary and Exercise Log Directly Towards Children",
+    "venue": "CSEDU 2015",
+    "authors": "N. Guimarães, V. Ferro Lebres, J. C. Ribeiro",
+    "url": "",
+    "featured": false
+  }
+]

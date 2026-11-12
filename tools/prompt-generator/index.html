@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Gerador de Templates de Prompts</title>
+  <meta name="description" content="Ferramenta simples para gerar combinações de prompts a partir de um template e listas de variáveis.">
+  <style>
+    :root {
+      --bg: #f6f7f9;
+      --card: #ffffff;
+      --text: #17202a;
+      --muted: #667085;
+      --border: #d9dee7;
+      --accent: #1f6feb;
+      --accent-hover: #1558b0;
+      --soft: #eef4ff;
+      --danger: #b42318;
+      --shadow: 0 8px 24px rgba(16, 24, 40, 0.08);
+      --radius: 14px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .wrap {
+      width: min(1100px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header .wrap {
+      padding: 28px 0 22px;
+    }
+
+    h1 {
+      margin: 0 0 6px;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      letter-spacing: -0.02em;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      max-width: 800px;
+    }
+
+    main {
+      padding: 28px 0 48px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 22px;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.15rem;
+    }
+
+    label {
+      display: block;
+      font-weight: 650;
+      margin-bottom: 7px;
+    }
+
+    textarea,
+    input[type="text"] {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 12px 13px;
+      font: inherit;
+      color: var(--text);
+      background: #fff;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus,
+    input[type="text"]:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(31, 111, 235, 0.12);
+    }
+
+    #template {
+      min-height: 150px;
+    }
+
+    .hint {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    button {
+      appearance: none;
+      border: 1px solid transparent;
+      border-radius: 10px;
+      padding: 10px 14px;
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+      transition: 0.15s ease;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    button.primary:hover { background: var(--accent-hover); }
+
+    button.secondary {
+      background: #fff;
+      color: var(--text);
+      border-color: var(--border);
+    }
+
+    button.secondary:hover { background: #f2f4f7; }
+
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+
+    .variables {
+      display: grid;
+      gap: 16px;
+    }
+
+    .variable {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 15px;
+      background: #fbfcfe;
+    }
+
+    .variable-name {
+      display: inline-block;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      background: var(--soft);
+      color: #1849a9;
+      border-radius: 7px;
+      padding: 2px 7px;
+      margin-left: 4px;
+      font-size: 0.92rem;
+    }
+
+    .variable textarea {
+      min-height: 110px;
+    }
+
+    .status {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: var(--soft);
+      color: #1849a9;
+      font-weight: 650;
+      font-size: 0.9rem;
+    }
+
+    .warning {
+      color: var(--danger);
+      font-size: 0.92rem;
+      margin-top: 10px;
+    }
+
+    .results {
+      display: grid;
+      gap: 12px;
+      max-height: 700px;
+      overflow: auto;
+      padding-right: 3px;
+    }
+
+    .result {
+      border: 1px solid var(--border);
+      border-radius: 11px;
+      padding: 14px;
+      background: #fff;
+    }
+
+    .result-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+
+    .result-number {
+      font-weight: 700;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .copy-one {
+      padding: 6px 10px;
+      font-size: 0.88rem;
+    }
+
+    pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+      font-family: inherit;
+    }
+
+    .empty {
+      color: var(--muted);
+      text-align: center;
+      padding: 24px 10px;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+    }
+
+    .mode-switch {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .mode-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 12px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #fff;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .mode-option input {
+      margin: 0;
+    }
+
+    .csv-panel {
+      display: none;
+    }
+
+    .csv-panel.active,
+    .manual-panel.active {
+      display: block;
+    }
+
+    .manual-panel {
+      display: none;
+    }
+
+    .file-input {
+      width: 100%;
+      border: 1px dashed var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      background: #fbfcfe;
+      font: inherit;
+    }
+
+    .csv-info {
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 10px;
+      background: var(--soft);
+      color: #1849a9;
+      font-size: 0.92rem;
+    }
+
+    .csv-preview-wrap {
+      margin-top: 14px;
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+    }
+
+    .csv-preview {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+      background: #fff;
+    }
+
+    .csv-preview th,
+    .csv-preview td {
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      padding: 8px 10px;
+      text-align: left;
+      vertical-align: top;
+      white-space: nowrap;
+    }
+
+    .csv-preview th {
+      background: #f8fafc;
+      font-weight: 700;
+    }
+
+    .csv-preview th:last-child,
+    .csv-preview td:last-child {
+      border-right: 0;
+    }
+
+    .csv-preview tr:last-child td {
+      border-bottom: 0;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.9rem;
+      padding: 0 0 30px;
+    }
+
+    @media (min-width: 900px) {
+      .grid.two {
+        grid-template-columns: 1.05fr 0.95fr;
+        align-items: start;
+      }
+    }
+  </style>
+<style>.site-back { display:block; max-width:1100px; margin:16px auto 0; padding:0 16px; font:600 14px system-ui,sans-serif; } .site-back a{color:#1f6feb;text-decoration:none} .site-back a:hover{text-decoration:underline}</style>
+</head>
+<body>
+<div class="site-back"><a href="../../resources.html">← Back to Nuno Guimarães · Resources</a></div>
+  <header>
+    <div class="wrap">
+      <h1>Gerador de Templates de Prompts</h1>
+      <p class="subtitle">
+        Crie um template com variáveis, defina vários valores para cada uma e gere automaticamente todas as combinações possíveis.
+        Tudo é processado localmente no navegador.
+      </p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <div class="grid two">
+      <section class="card">
+        <h2>1. Escreva o template</h2>
+        <label for="template">Template do prompt</label>
+        <textarea id="template">Redige um {tipo_documento} dirigido a {destinatario} sobre {assunto}. Utiliza um tom {tom} e escreve em português europeu.</textarea>
+        <p class="hint">Utilize chavetas para identificar variáveis, por exemplo: <strong>{tom}</strong>, <strong>{assunto}</strong> ou <strong>{destinatario}</strong>.</p>
+
+        <div class="actions">
+          <button class="primary" id="detectBtn">Detetar variáveis</button>
+          <button class="secondary" id="exampleBtn">Carregar exemplo</button>
+          <button class="secondary" id="clearBtn">Limpar</button>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>2. Defina os valores</h2>
+
+        <div class="mode-switch" role="radiogroup" aria-label="Modo de geração">
+          <label class="mode-option">
+            <input type="radio" name="generationMode" value="manual" checked>
+            Combinações manuais
+          </label>
+          <label class="mode-option">
+            <input type="radio" name="generationMode" value="csv">
+            Carregar CSV
+          </label>
+        </div>
+
+        <div id="manualPanel" class="manual-panel active">
+          <div id="variables" class="variables">
+            <div class="empty">Clique em <strong>Detetar variáveis</strong> para começar.</div>
+          </div>
+
+          <div class="actions">
+            <button class="primary" id="generateBtn" disabled>Gerar combinações</button>
+          </div>
+        </div>
+
+        <div id="csvPanel" class="csv-panel">
+          <label for="csvFile">Ficheiro CSV</label>
+          <input class="file-input" type="file" id="csvFile" accept=".csv,text/csv">
+          <p class="hint">
+            Cada coluna deve ter o nome de uma variável do template. Cada linha corresponde a um prompt a gerar.
+            São aceites ficheiros separados por vírgulas, ponto e vírgula ou tabulações.
+          </p>
+
+          <div class="actions">
+            <button class="secondary" id="downloadCsvExampleBtn">Descarregar CSV de exemplo</button>
+            <button class="primary" id="generateCsvBtn" disabled>Gerar prompts do CSV</button>
+          </div>
+
+          <div id="csvStatus"></div>
+          <div id="csvPreview"></div>
+        </div>
+
+        <div id="validation" class="warning" aria-live="polite"></div>
+      </section>
+    </div>
+
+    <section class="card" style="margin-top:20px;">
+      <div class="status">
+        <h2 style="margin:0; margin-right:auto;">3. Resultados</h2>
+        <span class="badge" id="countBadge">0 prompts</span>
+      </div>
+
+      <div class="actions" style="margin-top:0; margin-bottom:14px;">
+        <button class="secondary" id="copyAllBtn" disabled>Copiar todos</button>
+        <button class="secondary" id="txtBtn" disabled>Descarregar TXT</button>
+        <button class="secondary" id="csvBtn" disabled>Descarregar CSV</button>
+      </div>
+
+      <div id="results" class="results">
+        <div class="empty">As combinações geradas irão aparecer aqui.</div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    Ferramenta para fins educativos. Não introduza dados pessoais, confidenciais ou sensíveis.
+  </footer>
+
+  <script>
+    const templateEl = document.getElementById("template");
+    const variablesEl = document.getElementById("variables");
+    const resultsEl = document.getElementById("results");
+    const detectBtn = document.getElementById("detectBtn");
+    const generateBtn = document.getElementById("generateBtn");
+    const exampleBtn = document.getElementById("exampleBtn");
+    const clearBtn = document.getElementById("clearBtn");
+    const copyAllBtn = document.getElementById("copyAllBtn");
+    const txtBtn = document.getElementById("txtBtn");
+    const csvBtn = document.getElementById("csvBtn");
+    const countBadge = document.getElementById("countBadge");
+    const validationEl = document.getElementById("validation");
+    const manualPanel = document.getElementById("manualPanel");
+    const csvPanel = document.getElementById("csvPanel");
+    const csvFileEl = document.getElementById("csvFile");
+    const generateCsvBtn = document.getElementById("generateCsvBtn");
+    const downloadCsvExampleBtn = document.getElementById("downloadCsvExampleBtn");
+    const csvStatusEl = document.getElementById("csvStatus");
+    const csvPreviewEl = document.getElementById("csvPreview");
+    const modeRadios = document.querySelectorAll('input[name="generationMode"]');
+
+    let variableNames = [];
+    let generatedPrompts = [];
+    let csvHeaders = [];
+    let csvRows = [];
+
+    function extractVariables(text) {
+      const regex = /\{([^{}]+)\}/g;
+      const found = [];
+      let match;
+      while ((match = regex.exec(text)) !== null) {
+        const name = match[1].trim();
+        if (name && !found.includes(name)) found.push(name);
+      }
+      return found;
+    }
+
+
+    function setMode(mode) {
+      const isManual = mode === "manual";
+      manualPanel.classList.toggle("active", isManual);
+      csvPanel.classList.toggle("active", !isManual);
+      validationEl.textContent = "";
+    }
+
+    function detectDelimiter(text) {
+      const firstLine = text.replace(/^\uFEFF/, "").split(/\r?\n/)[0] || "";
+      const candidates = [",", ";", "\t"];
+      let best = ",";
+      let bestCount = -1;
+
+      for (const delimiter of candidates) {
+        let count = 0;
+        let inQuotes = false;
+        for (let i = 0; i < firstLine.length; i++) {
+          const ch = firstLine[i];
+          if (ch === '"') {
+            if (inQuotes && firstLine[i + 1] === '"') {
+              i++;
+            } else {
+              inQuotes = !inQuotes;
+            }
+          } else if (ch === delimiter && !inQuotes) {
+            count++;
+          }
+        }
+        if (count > bestCount) {
+          bestCount = count;
+          best = delimiter;
+        }
+      }
+      return best;
+    }
+
+    function parseCsv(text, delimiter) {
+      text = text.replace(/^\uFEFF/, "");
+      const rows = [];
+      let row = [];
+      let field = "";
+      let inQuotes = false;
+
+      for (let i = 0; i < text.length; i++) {
+        const ch = text[i];
+
+        if (inQuotes) {
+          if (ch === '"') {
+            if (text[i + 1] === '"') {
+              field += '"';
+              i++;
+            } else {
+              inQuotes = false;
+            }
+          } else {
+            field += ch;
+          }
+          continue;
+        }
+
+        if (ch === '"') {
+          inQuotes = true;
+        } else if (ch === delimiter) {
+          row.push(field);
+          field = "";
+        } else if (ch === "\n") {
+          row.push(field.replace(/\r$/, ""));
+          rows.push(row);
+          row = [];
+          field = "";
+        } else {
+          field += ch;
+        }
+      }
+
+      if (field.length || row.length) {
+        row.push(field.replace(/\r$/, ""));
+        rows.push(row);
+      }
+
+      return rows.filter(r => r.some(cell => String(cell).trim() !== ""));
+    }
+
+    function normalizeCsvData(parsedRows) {
+      if (!parsedRows.length) return { headers: [], rows: [] };
+
+      const headers = parsedRows[0].map(h => String(h).trim());
+      const rows = parsedRows.slice(1).map(rawRow => {
+        const obj = {};
+        headers.forEach((header, index) => {
+          obj[header] = rawRow[index] !== undefined ? String(rawRow[index]).trim() : "";
+        });
+        return obj;
+      }).filter(obj => Object.values(obj).some(v => v !== ""));
+
+      return { headers, rows };
+    }
+
+    function validateCsvAgainstTemplate() {
+      const currentVariables = extractVariables(templateEl.value);
+      const missing = currentVariables.filter(v => !csvHeaders.includes(v));
+      const extras = csvHeaders.filter(h => !currentVariables.includes(h));
+
+      if (!csvHeaders.length) {
+        return { ok: false, message: "Carregue primeiro um ficheiro CSV." };
+      }
+
+      if (!currentVariables.length) {
+        return { ok: false, message: "O template não contém variáveis entre chavetas." };
+      }
+
+      if (missing.length) {
+        return {
+          ok: false,
+          message: `Faltam no CSV as seguintes colunas: ${missing.join(", ")}.`
+        };
+      }
+
+      const emptyRows = csvRows
+        .map((row, index) => currentVariables.some(v => !String(row[v] ?? "").trim()) ? index + 2 : null)
+        .filter(Boolean);
+
+      if (emptyRows.length) {
+        const shown = emptyRows.slice(0, 8).join(", ");
+        const suffix = emptyRows.length > 8 ? "…" : "";
+        return {
+          ok: false,
+          message: `Existem valores em falta nas linhas ${shown}${suffix}. Cada variável do template deve ter um valor em cada linha.`
+        };
+      }
+
+      let message = "";
+      if (extras.length) {
+        message = `Nota: as colunas ${extras.join(", ")} não existem no template e serão ignoradas.`;
+      }
+
+      return { ok: true, message };
+    }
+
+    function renderCsvPreview() {
+      csvStatusEl.innerHTML = "";
+      csvPreviewEl.innerHTML = "";
+
+      if (!csvHeaders.length) {
+        generateCsvBtn.disabled = true;
+        return;
+      }
+
+      const validation = validateCsvAgainstTemplate();
+
+      const info = document.createElement("div");
+      info.className = "csv-info";
+      info.textContent = `${csvRows.length} ${csvRows.length === 1 ? "linha de dados" : "linhas de dados"} · ${csvHeaders.length} ${csvHeaders.length === 1 ? "coluna" : "colunas"}`;
+      csvStatusEl.appendChild(info);
+
+      if (validation.message) {
+        const note = document.createElement("div");
+        note.className = validation.ok ? "csv-info" : "warning";
+        note.textContent = validation.message;
+        csvStatusEl.appendChild(note);
+      }
+
+      generateCsvBtn.disabled = !validation.ok || csvRows.length === 0;
+
+      const previewRows = csvRows.slice(0, 5);
+      const wrap = document.createElement("div");
+      wrap.className = "csv-preview-wrap";
+
+      const table = document.createElement("table");
+      table.className = "csv-preview";
+
+      const thead = document.createElement("thead");
+      const headRow = document.createElement("tr");
+      csvHeaders.forEach(header => {
+        const th = document.createElement("th");
+        th.textContent = header;
+        headRow.appendChild(th);
+      });
+      thead.appendChild(headRow);
+
+      const tbody = document.createElement("tbody");
+      previewRows.forEach(row => {
+        const tr = document.createElement("tr");
+        csvHeaders.forEach(header => {
+          const td = document.createElement("td");
+          td.textContent = row[header] ?? "";
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+
+      table.appendChild(thead);
+      table.appendChild(tbody);
+      wrap.appendChild(table);
+      csvPreviewEl.appendChild(wrap);
+
+      if (csvRows.length > previewRows.length) {
+        const p = document.createElement("p");
+        p.className = "hint";
+        p.textContent = `Pré-visualização das primeiras ${previewRows.length} linhas.`;
+        csvPreviewEl.appendChild(p);
+      }
+    }
+
+    function generateFromCsv() {
+      validationEl.textContent = "";
+      const validation = validateCsvAgainstTemplate();
+
+      if (!validation.ok) {
+        validationEl.textContent = validation.message;
+        return;
+      }
+
+      const template = templateEl.value;
+      const currentVariables = extractVariables(template);
+
+      generatedPrompts = csvRows.map(row => {
+        let output = template;
+        currentVariables.forEach(name => {
+          const safeName = escapeRegExp(name);
+          output = output.replace(
+            new RegExp(`\\{\\s*${safeName}\\s*\\}`, "g"),
+            row[name] ?? ""
+          );
+        });
+        return output;
+      });
+
+      renderResults();
+    }
+
+    function detectVariables(prefill = {}) {
+      variableNames = extractVariables(templateEl.value);
+      validationEl.textContent = "";
+      generatedPrompts = [];
+      renderResults();
+
+      if (!variableNames.length) {
+        variablesEl.innerHTML = '<div class="empty">Não foram encontradas variáveis. Use chavetas, por exemplo <strong>{tom}</strong>.</div>';
+        generateBtn.disabled = true;
+        return;
+      }
+
+      variablesEl.innerHTML = "";
+      variableNames.forEach(name => {
+        const box = document.createElement("div");
+        box.className = "variable";
+
+        const label = document.createElement("label");
+        label.setAttribute("for", `var-${name}`);
+        label.innerHTML = `Valores para <span class="variable-name">{${escapeHtml(name)}}</span>`;
+
+        const area = document.createElement("textarea");
+        area.id = `var-${name}`;
+        area.dataset.variable = name;
+        area.placeholder = "Introduza um valor por linha";
+        area.value = (prefill[name] || []).join("\n");
+
+        const hint = document.createElement("p");
+        hint.className = "hint";
+        hint.textContent = "Um valor por linha.";
+
+        box.appendChild(label);
+        box.appendChild(area);
+        box.appendChild(hint);
+        variablesEl.appendChild(box);
+      });
+
+      generateBtn.disabled = false;
+    }
+
+    function getValues() {
+      const values = {};
+      for (const name of variableNames) {
+        const area = document.querySelector(`textarea[data-variable="${cssEscape(name)}"]`);
+        const items = area.value
+          .split(/\r?\n/)
+          .map(v => v.trim())
+          .filter(Boolean);
+        values[name] = items;
+      }
+      return values;
+    }
+
+    function cartesianProduct(arrays) {
+      return arrays.reduce(
+        (acc, curr) => acc.flatMap(a => curr.map(b => [...a, b])),
+        [[]]
+      );
+    }
+
+    function generate() {
+      validationEl.textContent = "";
+      const template = templateEl.value.trim();
+
+      if (!template) {
+        validationEl.textContent = "Escreva primeiro um template.";
+        return;
+      }
+
+      const values = getValues();
+      const missing = variableNames.filter(name => values[name].length === 0);
+
+      if (missing.length) {
+        validationEl.textContent = "Adicione pelo menos um valor a todas as variáveis.";
+        return;
+      }
+
+      const arrays = variableNames.map(name => values[name]);
+      const total = arrays.reduce((n, arr) => n * arr.length, 1);
+
+      if (total > 5000) {
+        validationEl.textContent = `Este template geraria ${total.toLocaleString("pt-PT")} combinações. Por segurança, o limite desta ferramenta é 5000.`;
+        return;
+      }
+
+      const combos = cartesianProduct(arrays);
+
+      generatedPrompts = combos.map(combo => {
+        let output = template;
+        variableNames.forEach((name, i) => {
+          const safeName = escapeRegExp(name);
+          output = output.replace(new RegExp(`\\{\\s*${safeName}\\s*\\}`, "g"), combo[i]);
+        });
+        return output;
+      });
+
+      renderResults();
+    }
+
+    function renderResults() {
+      resultsEl.innerHTML = "";
+      countBadge.textContent = `${generatedPrompts.length} ${generatedPrompts.length === 1 ? "prompt" : "prompts"}`;
+
+      const hasResults = generatedPrompts.length > 0;
+      copyAllBtn.disabled = !hasResults;
+      txtBtn.disabled = !hasResults;
+      csvBtn.disabled = !hasResults;
+
+      if (!hasResults) {
+        resultsEl.innerHTML = '<div class="empty">As combinações geradas irão aparecer aqui.</div>';
+        return;
+      }
+
+      generatedPrompts.forEach((prompt, index) => {
+        const box = document.createElement("div");
+        box.className = "result";
+
+        const head = document.createElement("div");
+        head.className = "result-head";
+
+        const num = document.createElement("span");
+        num.className = "result-number";
+        num.textContent = `Prompt ${index + 1}`;
+
+        const copy = document.createElement("button");
+        copy.className = "secondary copy-one";
+        copy.textContent = "Copiar";
+        copy.addEventListener("click", async () => {
+          await navigator.clipboard.writeText(prompt);
+          const old = copy.textContent;
+          copy.textContent = "Copiado";
+          setTimeout(() => copy.textContent = old, 1200);
+        });
+
+        const pre = document.createElement("pre");
+        pre.textContent = prompt;
+
+        head.appendChild(num);
+        head.appendChild(copy);
+        box.appendChild(head);
+        box.appendChild(pre);
+        resultsEl.appendChild(box);
+      });
+    }
+
+    function downloadFile(filename, content, mime) {
+      const blob = new Blob([content], { type: mime });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function toCsv(prompts) {
+      const rows = [["numero", "prompt"]];
+      prompts.forEach((p, i) => rows.push([i + 1, p]));
+      return rows.map(row =>
+        row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(",")
+      ).join("\n");
+    }
+
+    function escapeRegExp(text) {
+      return text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    }
+
+    function escapeHtml(text) {
+      return text
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function cssEscape(value) {
+      if (window.CSS && CSS.escape) return CSS.escape(value);
+      return value.replace(/["\\]/g, "\\$&");
+    }
+
+    modeRadios.forEach(radio => {
+      radio.addEventListener("change", () => setMode(radio.value));
+    });
+
+    detectBtn.addEventListener("click", () => {
+      detectVariables();
+      renderCsvPreview();
+    });
+
+    templateEl.addEventListener("input", () => {
+      if (csvHeaders.length) renderCsvPreview();
+    });
+
+    csvFileEl.addEventListener("change", async () => {
+      validationEl.textContent = "";
+      const file = csvFileEl.files && csvFileEl.files[0];
+
+      if (!file) {
+        csvHeaders = [];
+        csvRows = [];
+        renderCsvPreview();
+        return;
+      }
+
+      try {
+        const text = await file.text();
+        const delimiter = detectDelimiter(text);
+        const parsed = parseCsv(text, delimiter);
+        const normalized = normalizeCsvData(parsed);
+        csvHeaders = normalized.headers;
+        csvRows = normalized.rows;
+        renderCsvPreview();
+      } catch (error) {
+        csvHeaders = [];
+        csvRows = [];
+        generateCsvBtn.disabled = true;
+        csvStatusEl.innerHTML = "";
+        csvPreviewEl.innerHTML = "";
+        validationEl.textContent = "Não foi possível ler o ficheiro CSV.";
+      }
+    });
+
+    generateCsvBtn.addEventListener("click", generateFromCsv);
+
+    downloadCsvExampleBtn.addEventListener("click", () => {
+      const vars = extractVariables(templateEl.value);
+
+      if (!vars.length) {
+        validationEl.textContent = "Adicione primeiro variáveis ao template.";
+        return;
+      }
+
+      const exampleValues = {
+        tipo_documento: ["email", "ofício", "comunicado"],
+        destinatario: ["munícipe", "associação local", "presidente de junta"],
+        assunto: ["pedido de informação", "convite para um evento", "reclamação"],
+        tom: ["formal", "cordial", "sucinto"]
+      };
+
+      const rowCount = 3;
+      const rows = [vars];
+
+      for (let i = 0; i < rowCount; i++) {
+        rows.push(vars.map(v => {
+          if (exampleValues[v]) return exampleValues[v][i] || exampleValues[v][0];
+          return `exemplo ${i + 1}`;
+        }));
+      }
+
+      const csv = "\uFEFF" + rows.map(row =>
+        row.map(value => `"${String(value).replace(/"/g, '""')}"`).join(";")
+      ).join("\n");
+
+      downloadFile("exemplo_variaveis.csv", csv, "text/csv;charset=utf-8");
+    });
+
+    generateBtn.addEventListener("click", generate);
+
+    exampleBtn.addEventListener("click", () => {
+      templateEl.value = "Redige um {tipo_documento} dirigido a {destinatario} sobre {assunto}. Utiliza um tom {tom}, escreve em português europeu e não inventes informação.";
+      detectVariables({
+        tipo_documento: ["email", "ofício", "comunicado"],
+        destinatario: ["munícipe", "associação local", "presidente de junta"],
+        assunto: ["pedido de informação", "convite para um evento", "reclamação"],
+        tom: ["formal", "cordial", "sucinto"]
+      });
+    });
+
+    clearBtn.addEventListener("click", () => {
+      templateEl.value = "";
+      variableNames = [];
+      generatedPrompts = [];
+      csvHeaders = [];
+      csvRows = [];
+      csvFileEl.value = "";
+      csvStatusEl.innerHTML = "";
+      csvPreviewEl.innerHTML = "";
+      generateCsvBtn.disabled = true;
+      variablesEl.innerHTML = '<div class="empty">Clique em <strong>Detetar variáveis</strong> para começar.</div>';
+      generateBtn.disabled = true;
+      validationEl.textContent = "";
+      renderResults();
+      templateEl.focus();
+    });
+
+    copyAllBtn.addEventListener("click", async () => {
+      const text = generatedPrompts
+        .map((p, i) => `PROMPT ${i + 1}\n${p}`)
+        .join("\n\n---\n\n");
+      await navigator.clipboard.writeText(text);
+      const old = copyAllBtn.textContent;
+      copyAllBtn.textContent = "Copiados";
+      setTimeout(() => copyAllBtn.textContent = old, 1200);
+    });
+
+    txtBtn.addEventListener("click", () => {
+      const text = generatedPrompts
+        .map((p, i) => `PROMPT ${i + 1}\n${p}`)
+        .join("\n\n---\n\n");
+      downloadFile("prompts.txt", text, "text/plain;charset=utf-8");
+    });
+
+    csvBtn.addEventListener("click", () => {
+      downloadFile("prompts.csv", "\uFEFF" + toCsv(generatedPrompts), "text/csv;charset=utf-8");
+    });
+
+    detectVariables();
+  </script>
+</body>
+</html>
